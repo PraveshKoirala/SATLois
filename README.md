@@ -1,21 +1,37 @@
-This repository contains code for the paper _An Application of SAT Solvers in Integer Programming Games_ which has been accepted into the 
-The 28th International Conference on Theory and Applications of Satisfiability Testing (SAT 2025) conference.
+# SAT-LOIS
 
-> Integer programming games (IPGs) are a popular game-theoretic tool to model an array of games
-where each player has a discrete strategy set. These games arise in important domains such as
-economics, transportation, cybersecurity, etc., but solving them is non-trivial as it is known that
-checking for the existence of pure Nash equilibria in an IPG is Sigma_p^2 -complete. Recent works have
-proposed a class of relaxed solution concepts for IPGs called locally optimal integer solutions (LOIS)
-and shown it to be an efficient alternative for pure Nash equilibria. While LOIS are significantly
-simpler to compute, they still do not scale when solved using traditional mathematical solvers,
-especially when high-quality solutions are desired. In this paper, we apply commercially available
-SAT solvers to find LOIS in IPGs. We investigate efficient encodings for a cybersecurity game
-and compare solution times when using SAT solvers vs mathematical program solvers. We also
-investigate the application of SAT solvers in graph games using a graph interdiction example and
-compare against the obtained LOI solutions against existing heuristics-based solutions. Our results
-indicate that with appropriate encodings, large-scale IPGs can be solved much more efficiently
-using SAT solvers. We also show that SAT solvers can be applied to graph games in conjunction
-with LOIS for obtaining high-quality solutions. Our results emphasize the potential of SAT solvers
-combined with LOIS to solve significant game theory problems.
+This repository contains the implementation for the paper *An Application of SAT Solvers in Integer Programming Games*.
 
-_The code is in the process of cleanup/refactor and will be shortly updated._
+Files:
+
+- `cng.py`: synthetic critical node game generator shared by the SAT-based model.
+- `sat_lois.py`: SAT encoding for locally optimal solutions in the critical node game.
+- `graph_game/`: graph interdiction benchmark and heuristics.
+
+## Dependencies
+
+Install:
+
+```bash
+pip install -r requirements.txt
+```
+
+## Usage
+
+Find a SAT-based local solution for a critical node game instance:
+
+```bash
+python sat_lois.py --size 50 --seed 6318 --locality 2
+```
+
+Run the graph-game benchmark:
+
+```bash
+python graph_game/benchmark.py --vertices 50 --budget-d 5 --budget-a 2 --radius 5 --samples 20 --seed 75
+```
+
+## Notes
+
+- `sat_lois.py` provides a self-contained SAT-based solver for local solutions in the critical node game.
+- The `graph_game` directory contains the benchmark code and heuristic baselines used for the graph-game experiments.
+- This repository covers both the SAT-based implementation and the graph-game application discussed in the paper.
